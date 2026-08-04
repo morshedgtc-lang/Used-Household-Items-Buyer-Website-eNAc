@@ -1,0 +1,195 @@
+﻿{
+  "buckets": {
+    "edges": []
+  },
+  "deletedAt": null,
+  "environments": {
+    "edges": [
+      {
+        "node": {
+          "canAccess": true,
+          "deletedAt": null,
+          "id": "bc2eff79-4cf9-46e9-b728-67c9adfff7da",
+          "name": "production",
+          "serviceInstances": {
+            "edges": [
+              {
+                "node": {
+                  "activeDeployments": [
+                    {
+                      "createdAt": "2026-08-04T13:28:48.796Z",
+                      "deploymentStopped": true,
+                      "id": "cb5ecc78-449d-4bd3-b8e3-8ca3f35337b5",
+                      "instances": [
+                        {
+                          "id": "79f8862e-cc16-4b61-a6f0-66ec6f21f46d",
+                          "status": "CRASHED"
+                        }
+                      ],
+                      "meta": {
+                        "buildOnly": false,
+                        "cliAgentSessionId": "fa06a784-40a8-4c50-aaf6-0e0e7fcd60e3",
+                        "cliCaller": "opencode",
+                        "fileServiceManifest": {},
+                        "imageDigest": "sha256:b6e09a38eb6c150043c84d84bc8277b1456af4b6a0154210e009696b086c4704",
+                        "logsV2": true,
+                        "nixpacksProviders": [],
+                        "propertyFileMapping": {},
+                        "reason": "deploy",
+                        "rootDirectory": null,
+                        "runtime": "V2",
+                        "serviceManifest": {
+                          "build": {
+                            "buildCommand": null,
+                            "buildEnvironment": "V3",
+                            "builder": "DOCKERFILE",
+                            "dockerfilePath": "/Dockerfile",
+                            "nixpacksConfigPath": null,
+                            "nixpacksPlan": null,
+                            "watchPatterns": []
+                          },
+                          "deploy": {
+                            "cronSchedule": null,
+                            "drainingSeconds": null,
+                            "healthcheckPath": null,
+                            "healthcheckTimeout": null,
+                            "ipv6EgressEnabled": false,
+                            "limitOverride": null,
+                            "multiRegionConfig": {
+                              "sfo": {
+                                "numReplicas": 1
+                              }
+                            },
+                            "numReplicas": 1,
+                            "overlapSeconds": null,
+                            "preDeployCommand": null,
+                            "region": null,
+                            "registryCredentials": null,
+                            "requiredMountPath": null,
+                            "restartPolicyMaxRetries": 10,
+                            "restartPolicyType": "ON_FAILURE",
+                            "runtime": "V2",
+                            "sleepApplication": false,
+                            "startCommand": null,
+                            "useLegacyStacker": false
+                          }
+                        },
+                        "volumeMounts": []
+                      },
+                      "status": "CRASHED"
+                    }
+                  ],
+                  "cronSchedule": null,
+                  "domains": {
+                    "customDomains": [],
+                    "serviceDomains": [
+                      {
+                        "domain": "used-household-items-buyer-website-production.up.railway.app",
+                        "id": "b461f1f1-e263-4e3a-9608-2a437150055c",
+                        "targetPort": null
+                      }
+                    ]
+                  },
+                  "environmentId": "bc2eff79-4cf9-46e9-b728-67c9adfff7da",
+                  "id": "d3fddbeb-bd4e-4966-9ee0-f5ed77c1d95a",
+                  "latestDeployment": {
+                    "canRedeploy": true,
+                    "createdAt": "2026-08-04T13:28:48.796Z",
+                    "deploymentStopped": true,
+                    "id": "cb5ecc78-449d-4bd3-b8e3-8ca3f35337b5",
+                    "instances": [
+                      {
+                        "id": "79f8862e-cc16-4b61-a6f0-66ec6f21f46d",
+                        "status": "CRASHED"
+                      }
+                    ],
+                    "meta": {
+                      "buildOnly": false,
+                      "cliAgentSessionId": "fa06a784-40a8-4c50-aaf6-0e0e7fcd60e3",
+                      "cliCaller": "opencode",
+                      "fileServiceManifest": {},
+                      "imageDigest": "sha256:b6e09a38eb6c150043c84d84bc8277b1456af4b6a0154210e009696b086c4704",
+                      "logsV2": true,
+                      "nixpacksProviders": [],
+                      "propertyFileMapping": {},
+                      "reason": "deploy",
+                      "rootDirectory": null,
+                      "runtime": "V2",
+                      "serviceManifest": {
+                        "build": {
+                          "buildCommand": null,
+                          "buildEnvironment": "V3",
+                          "builder": "DOCKERFILE",
+                          "dockerfilePath": "/Dockerfile",
+                          "nixpacksConfigPath": null,
+                          "nixpacksPlan": null,
+                          "watchPatterns": []
+                        },
+                        "deploy": {
+                          "cronSchedule": null,
+                          "drainingSeconds": null,
+                          "healthcheckPath": null,
+                          "healthcheckTimeout": null,
+                          "ipv6EgressEnabled": false,
+                          "limitOverride": null,
+                          "multiRegionConfig": {
+                            "sfo": {
+                              "numReplicas": 1
+                            }
+                          },
+                          "numReplicas": 1,
+                          "overlapSeconds": null,
+                          "preDeployCommand": null,
+                          "region": null,
+                          "registryCredentials": null,
+                          "requiredMountPath": null,
+                          "restartPolicyMaxRetries": 10,
+                          "restartPolicyType": "ON_FAILURE",
+                          "runtime": "V2",
+                          "sleepApplication": false,
+                          "startCommand": null,
+                          "useLegacyStacker": false
+                        }
+                      },
+                      "volumeMounts": []
+                    },
+                    "status": "CRASHED"
+                  },
+                  "nextCronRunAt": null,
+                  "numReplicas": null,
+                  "serviceId": "cb319d62-6824-46ee-9637-165e4e35cc6f",
+                  "serviceName": "Used-Household-Items-Buyer-Website",
+                  "source": {
+                    "image": null,
+                    "repo": "morshedgtc-lang/Used-Household-Items-Buyer-Website-eNAc"
+                  },
+                  "startCommand": null
+                }
+              }
+            ]
+          },
+          "unmergedChangesCount": null,
+          "volumeInstances": {
+            "edges": []
+          }
+        }
+      }
+    ]
+  },
+  "id": "b626459d-5006-4ce8-81ac-e4a3ba5bcd02",
+  "name": "ample-integrity",
+  "services": {
+    "edges": [
+      {
+        "node": {
+          "id": "cb319d62-6824-46ee-9637-165e4e35cc6f",
+          "name": "Used-Household-Items-Buyer-Website"
+        }
+      }
+    ]
+  },
+  "workspace": {
+    "name": "morshedgtc-lang's Projects"
+  },
+  "workspaceId": "f1b0f6f1-aa4a-43b1-8443-535fae8557d2"
+}
