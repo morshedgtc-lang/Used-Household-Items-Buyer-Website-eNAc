@@ -20,9 +20,9 @@ export function Field({
 }) {
   return (
     <div className={cn("space-y-2", className)}>
-      <Label htmlFor={htmlFor}>
+      <Label htmlFor={htmlFor} className="text-sm font-medium">
         {label}
-        {required ? <span className="text-destructive"> *</span> : null}
+        {required ? <span className="ml-0.5 text-destructive">*</span> : null}
       </Label>
       {children}
       {hint ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
@@ -47,7 +47,14 @@ export function TextInput({
 }) {
   return (
     <Field label={label} htmlFor={name} required={required} hint={hint}>
-      <Input id={name} name={name} required={required} defaultValue={defaultValue ?? ""} placeholder={placeholder} />
+      <Input
+        id={name}
+        name={name}
+        required={required}
+        defaultValue={defaultValue ?? ""}
+        placeholder={placeholder}
+        className="h-11 rounded-xl border-border/60 bg-white focus-visible:ring-emerald-500/20 focus-visible:border-emerald-400"
+      />
     </Field>
   );
 }
@@ -78,6 +85,7 @@ export function TextAreaInput({
         defaultValue={defaultValue ?? ""}
         placeholder={placeholder}
         rows={rows}
+        className="rounded-xl border-border/60 bg-white focus-visible:ring-emerald-500/20 focus-visible:border-emerald-400"
       />
     </Field>
   );
@@ -89,9 +97,9 @@ export function StatusSelect({
   defaultValue?: string;
 }) {
   const options = [
-    { value: "PUBLISHED", label: "Published" },
-    { value: "DRAFT", label: "Draft" },
-    { value: "ARCHIVED", label: "Archived" },
+    { value: "PUBLISHED", label: "Published", dot: "bg-emerald-500" },
+    { value: "DRAFT", label: "Draft", dot: "bg-amber-500" },
+    { value: "ARCHIVED", label: "Archived", dot: "bg-gray-400" },
   ];
   return (
     <Field label="Status" htmlFor="status" required>
@@ -99,7 +107,7 @@ export function StatusSelect({
         id="status"
         name="status"
         defaultValue={defaultValue}
-        className="h-11 w-full rounded-xl border border-border bg-background/80 px-4 py-2 text-sm shadow-sm backdrop-blur transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+        className="h-11 w-full rounded-xl border border-border/60 bg-white px-4 py-2 text-sm shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/20 focus-visible:border-emerald-400"
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -128,7 +136,15 @@ export function NumberInput({
 }) {
   return (
     <Field label={label} htmlFor={name} hint={hint}>
-      <Input id={name} name={name} type="number" min={min} max={max} defaultValue={defaultValue} />
+      <Input
+        id={name}
+        name={name}
+        type="number"
+        min={min}
+        max={max}
+        defaultValue={defaultValue}
+        className="h-11 rounded-xl border-border/60 bg-white focus-visible:ring-emerald-500/20 focus-visible:border-emerald-400"
+      />
     </Field>
   );
 }
@@ -145,12 +161,12 @@ export function CheckboxInput({
   hint?: string;
 }) {
   return (
-    <label className="flex items-start gap-3 rounded-xl border border-border bg-background/50 p-4">
+    <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-border/60 bg-white p-4 transition-colors hover:bg-emerald-50/30">
       <input
         type="checkbox"
         name={name}
         defaultChecked={defaultChecked}
-        className="mt-0.5 h-4 w-4 rounded border-border text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30"
+        className="mt-0.5 h-4 w-4 rounded border-border text-emerald-500 focus-visible:ring-emerald-500/20"
       />
       <span>
         <span className="block text-sm font-medium">{label}</span>

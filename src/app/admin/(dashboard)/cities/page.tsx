@@ -23,12 +23,12 @@ export default async function AdminCitiesPage() {
   });
 
   return (
-    <div>
+    <div className="space-y-6">
       <PageHeader
         title="Cities"
         description="Cities and areas where you offer pickup service"
         action={
-          <Button asChild>
+          <Button asChild className="gap-1.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 shadow-sm">
             <Link href="/admin/cities/new">
               <Plus className="h-4 w-4" />
               New City
@@ -53,7 +53,7 @@ export default async function AdminCitiesPage() {
             {cities.map((city) => (
               <AdminTableRow key={city.id}>
                 <AdminTableCell>
-                  <p className="font-semibold">{city.nameEn}</p>
+                  <p className="font-semibold text-foreground">{city.nameEn}</p>
                   <p className="text-xs text-muted-foreground" dir="rtl">
                     {city.nameAr}
                   </p>
@@ -61,10 +61,12 @@ export default async function AdminCitiesPage() {
                 <AdminTableCell>
                   <StatusBadge status={city.status} />
                 </AdminTableCell>
-                <AdminTableCell>{city.sortOrder}</AdminTableCell>
                 <AdminTableCell>
-                  <div className="flex items-center justify-end gap-2">
-                    <Button asChild variant="outline" size="sm">
+                  <span className="text-muted-foreground">{city.sortOrder}</span>
+                </AdminTableCell>
+                <AdminTableCell>
+                  <div className="flex items-center justify-end gap-1.5">
+                    <Button asChild variant="ghost" size="sm" className="gap-1 text-muted-foreground hover:text-foreground">
                       <Link href={`/admin/cities/${city.id}/edit`}>
                         <Pencil className="h-3.5 w-3.5" />
                         Edit

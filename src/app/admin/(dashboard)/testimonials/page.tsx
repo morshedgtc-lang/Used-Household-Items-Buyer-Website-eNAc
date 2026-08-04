@@ -26,12 +26,12 @@ export default async function AdminTestimonialsPage() {
   });
 
   return (
-    <div>
+    <div className="space-y-6">
       <PageHeader
         title="Testimonials"
         description="Customer reviews shown on the homepage"
         action={
-          <Button asChild>
+          <Button asChild className="gap-1.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 shadow-sm">
             <Link href="/admin/testimonials/new">
               <Plus className="h-4 w-4" />
               New Testimonial
@@ -58,10 +58,13 @@ export default async function AdminTestimonialsPage() {
             {testimonials.map((testimonial) => (
               <AdminTableRow key={testimonial.id}>
                 <AdminTableCell>
-                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="font-semibold text-foreground">{testimonial.name}</p>
                 </AdminTableCell>
                 <AdminTableCell>
-                  <span className="text-amber-500">{"★".repeat(testimonial.rating)}</span>
+                  <div className="flex items-center gap-1">
+                    <span className="text-amber-500">{"★".repeat(testimonial.rating)}</span>
+                    <span className="text-xs text-muted-foreground">{testimonial.rating}/5</span>
+                  </div>
                 </AdminTableCell>
                 <AdminTableCell className="max-w-xs">
                   <p className="line-clamp-2 text-sm text-muted-foreground">
@@ -71,10 +74,12 @@ export default async function AdminTestimonialsPage() {
                 <AdminTableCell>
                   <StatusBadge status={testimonial.status} />
                 </AdminTableCell>
-                <AdminTableCell>{testimonial.sortOrder}</AdminTableCell>
                 <AdminTableCell>
-                  <div className="flex items-center justify-end gap-2">
-                    <Button asChild variant="outline" size="sm">
+                  <span className="text-muted-foreground">{testimonial.sortOrder}</span>
+                </AdminTableCell>
+                <AdminTableCell>
+                  <div className="flex items-center justify-end gap-1.5">
+                    <Button asChild variant="ghost" size="sm" className="gap-1 text-muted-foreground hover:text-foreground">
                       <Link href={`/admin/testimonials/${testimonial.id}/edit`}>
                         <Pencil className="h-3.5 w-3.5" />
                         Edit
@@ -82,9 +87,7 @@ export default async function AdminTestimonialsPage() {
                     </Button>
                     <ToggleButton
                       action={async () => toggleTestimonialStatus(testimonial.id)}
-                      label={
-                        testimonial.status === "PUBLISHED" ? "Unpublish" : "Publish"
-                      }
+                      label={testimonial.status === "PUBLISHED" ? "Unpublish" : "Publish"}
                       active={testimonial.status === "PUBLISHED"}
                     />
                     <DeleteButton action={async () => deleteTestimonial(testimonial.id)} />

@@ -23,12 +23,12 @@ export default async function AdminFaqsPage() {
   });
 
   return (
-    <div>
+    <div className="space-y-6">
       <PageHeader
         title="FAQs"
         description="Frequently asked questions shown on the homepage and FAQ page"
         action={
-          <Button asChild>
+          <Button asChild className="gap-1.5 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 shadow-sm">
             <Link href="/admin/faqs/new">
               <Plus className="h-4 w-4" />
               New FAQ
@@ -54,7 +54,7 @@ export default async function AdminFaqsPage() {
             {faqs.map((faq) => (
               <AdminTableRow key={faq.id}>
                 <AdminTableCell className="max-w-xs">
-                  <p className="font-semibold">{faq.questionEn}</p>
+                  <p className="font-semibold text-foreground">{faq.questionEn}</p>
                   <p className="text-xs text-muted-foreground" dir="rtl">
                     {faq.questionAr}
                   </p>
@@ -65,10 +65,12 @@ export default async function AdminFaqsPage() {
                 <AdminTableCell>
                   <StatusBadge status={faq.status} />
                 </AdminTableCell>
-                <AdminTableCell>{faq.sortOrder}</AdminTableCell>
                 <AdminTableCell>
-                  <div className="flex items-center justify-end gap-2">
-                    <Button asChild variant="outline" size="sm">
+                  <span className="text-muted-foreground">{faq.sortOrder}</span>
+                </AdminTableCell>
+                <AdminTableCell>
+                  <div className="flex items-center justify-end gap-1.5">
+                    <Button asChild variant="ghost" size="sm" className="gap-1 text-muted-foreground hover:text-foreground">
                       <Link href={`/admin/faqs/${faq.id}/edit`}>
                         <Pencil className="h-3.5 w-3.5" />
                         Edit

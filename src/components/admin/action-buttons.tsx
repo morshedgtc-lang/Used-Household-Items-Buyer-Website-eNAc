@@ -1,8 +1,9 @@
 "use client";
 
 import { useTransition } from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function DeleteButton({
   action,
@@ -25,8 +26,9 @@ export function DeleteButton({
           await action();
         });
       }}
+      className="gap-1.5"
     >
-      <Trash2 className="h-3.5 w-3.5" />
+      {pending ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Trash2 className="h-3.5 w-3.5" />}
       {pending ? "..." : label}
     </Button>
   );
@@ -50,7 +52,12 @@ export function ToggleButton({
       size="sm"
       disabled={pending}
       onClick={() => startTransition(async () => action())}
+      className={cn(
+        "gap-1.5",
+        active && "bg-emerald-500 hover:bg-emerald-600",
+      )}
     >
+      {pending && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
       {pending ? "..." : label}
     </Button>
   );
