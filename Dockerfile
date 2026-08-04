@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apk add --no-cache openssl
 COPY package.json package-lock.json ./
 COPY prisma ./prisma
-RUN npm ci --include=optional
+RUN npm ci
 
 # --- builder ---
 FROM base AS builder
@@ -32,7 +32,6 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
-COPY --from=builder --chown=nextjs:nodejs /app/prisma/seed.ts ./prisma/seed.ts
 
 USER nextjs
 EXPOSE 3000
