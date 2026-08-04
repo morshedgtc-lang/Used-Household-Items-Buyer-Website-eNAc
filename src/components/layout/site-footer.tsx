@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import type { Locale } from "@/config/site";
 
 type FooterProps = {
@@ -68,10 +69,11 @@ export function SiteFooter({
             <li>
               <a
                 href={`https://wa.me/${whatsapp.replace(/\D/g, "")}`}
-                className="hover:text-primary"
+                className="flex items-center gap-2 hover:text-[#25D366]"
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <WhatsAppIcon className="h-4 w-4 text-[#25D366]" />
                 WhatsApp: {whatsapp}
               </a>
             </li>

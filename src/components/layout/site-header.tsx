@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Menu, Moon, Phone, Sun, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { buildTelUrl, buildWhatsAppUrl } from "@/utils/whatsapp";
 import type { Locale } from "@/config/site";
 
@@ -90,6 +91,7 @@ export function SiteHeader({ companyName, phone, whatsapp, logo }: HeaderProps) 
               target="_blank"
               rel="noopener noreferrer"
             >
+              <WhatsAppIcon className="h-4 w-4" />
               {t("WhatsApp")}
             </a>
           </Button>

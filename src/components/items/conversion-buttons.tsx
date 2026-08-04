@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { WhatsAppIcon } from "@/components/ui/whatsapp-icon";
 import { buildTelUrl, buildWhatsAppUrl } from "@/utils/whatsapp";
 import type { Locale } from "@/config/site";
 
@@ -46,6 +47,7 @@ export function ConversionButtons({
           rel="noopener noreferrer"
           onClick={() => void track("WHATSAPP")}
         >
+          <WhatsAppIcon className="h-5 w-5" />
           {t("SellThisItem")}
         </a>
       </Button>
