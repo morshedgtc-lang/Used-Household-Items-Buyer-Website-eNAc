@@ -86,11 +86,11 @@ export default async function AdminTestimonialsPage() {
                       </Link>
                     </Button>
                     <ToggleButton
-                      action={async () => toggleTestimonialStatus(testimonial.id)}
+                      action={toggleTestimonialStatus.bind(null, testimonial.id)}
                       label={testimonial.status === "PUBLISHED" ? "Unpublish" : "Publish"}
                       active={testimonial.status === "PUBLISHED"}
                     />
-                    <DeleteButton action={async () => deleteTestimonial(testimonial.id)} />
+                    <DeleteButton action={deleteTestimonial.bind(null, testimonial.id)} />
                   </div>
                 </AdminTableCell>
               </AdminTableRow>

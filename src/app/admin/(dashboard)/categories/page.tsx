@@ -108,11 +108,11 @@ export default async function AdminCategoriesPage() {
                       </Link>
                     </Button>
                     <ToggleButton
-                      action={async () => toggleCategoryStatus(category.id)}
+                      action={toggleCategoryStatus.bind(null, category.id)}
                       label={category.status === "PUBLISHED" ? "Unpublish" : "Publish"}
                       active={category.status === "PUBLISHED"}
                     />
-                    <DeleteButton action={async () => deleteCategory(category.id)} />
+                    <DeleteButton action={deleteCategory.bind(null, category.id)} />
                   </div>
                 </AdminTableCell>
               </AdminTableRow>

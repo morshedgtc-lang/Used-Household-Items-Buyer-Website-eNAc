@@ -73,11 +73,11 @@ export default async function AdminCitiesPage() {
                       </Link>
                     </Button>
                     <ToggleButton
-                      action={async () => toggleCityStatus(city.id)}
+                      action={toggleCityStatus.bind(null, city.id)}
                       label={city.status === "PUBLISHED" ? "Unpublish" : "Publish"}
                       active={city.status === "PUBLISHED"}
                     />
-                    <DeleteButton action={async () => deleteCity(city.id)} />
+                    <DeleteButton action={deleteCity.bind(null, city.id)} />
                   </div>
                 </AdminTableCell>
               </AdminTableRow>

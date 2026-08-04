@@ -77,11 +77,11 @@ export default async function AdminFaqsPage() {
                       </Link>
                     </Button>
                     <ToggleButton
-                      action={async () => toggleFaqStatus(faq.id)}
+                      action={toggleFaqStatus.bind(null, faq.id)}
                       label={faq.status === "PUBLISHED" ? "Unpublish" : "Publish"}
                       active={faq.status === "PUBLISHED"}
                     />
-                    <DeleteButton action={async () => deleteFaq(faq.id)} />
+                    <DeleteButton action={deleteFaq.bind(null, faq.id)} />
                   </div>
                 </AdminTableCell>
               </AdminTableRow>

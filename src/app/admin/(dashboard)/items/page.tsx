@@ -158,11 +158,11 @@ export default async function AdminItemsPage({
                       </Link>
                     </Button>
                     <ToggleButton
-                      action={async () => toggleItemFeatured(item.id)}
+                      action={toggleItemFeatured.bind(null, item.id)}
                       label={item.featured ? "Unfeature" : "Feature"}
                       active={item.featured}
                     />
-                    <DeleteButton action={async () => deleteItem(item.id)} />
+                    <DeleteButton action={deleteItem.bind(null, item.id)} />
                   </div>
                 </AdminTableCell>
               </AdminTableRow>
