@@ -29,6 +29,7 @@ function getEnv(): Env {
 
   if (!parsed.success) {
     if (process.env.NODE_ENV === "production") {
+      console.error("[env] Invalid environment variables:", parsed.error.flatten().fieldErrors);
       throw new Error(`Invalid environment: ${parsed.error.message}`);
     }
     return {

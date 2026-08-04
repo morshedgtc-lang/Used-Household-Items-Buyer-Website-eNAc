@@ -13,3 +13,7 @@ docker-compose.yml
 *.tsbuildinfo
 next-env.d.ts
 coverage
+railway-status.json
+db-region-test.cjs
+dev-server.log
+.railway
