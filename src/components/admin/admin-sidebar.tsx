@@ -13,6 +13,7 @@ import {
   FileText,
   Search,
   Settings,
+  Images,
   LogOut,
   Menu,
   X,
@@ -43,6 +44,7 @@ const sections = [
     label: "Pages",
     items: [
       { href: "/admin/homepage", label: "Homepage", icon: FileText },
+      { href: "/admin/hero-images", label: "Hero Images", icon: Images },
       { href: "/admin/seo", label: "SEO", icon: Search },
       { href: "/admin/settings", label: "Settings", icon: Settings },
     ],

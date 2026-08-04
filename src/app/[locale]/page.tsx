@@ -15,9 +15,11 @@ import {
   listPublishedFaqs,
   listPublishedItems,
   listPublishedTestimonials,
+  listPublishedHeroImages,
 } from "@/services/content";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { buildPageMetadata } from "@/lib/seo";
+import { HeroCarousel } from "@/components/home/hero-carousel";
 
 export const dynamic = "force-dynamic";
 
@@ -32,7 +34,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
   const t = await getTranslations();
 
-  const [settings, hero, whyUs, cta, categories, featured, cities, testimonials, faqs] =
+  const [settings, hero, whyUs, cta, categories, featured, cities, testimonials, faqs, heroImages] =
     await Promise.all([
       getSettings(),
       getPageContent("home_hero"),
@@ -43,6 +45,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       listPublishedCities(),
       listPublishedTestimonials(),
       listPublishedFaqs(),
+      listPublishedHeroImages(),
     ]);
 
   const heroData = (hero?.data ?? {}) as Record<string, string>;
@@ -61,16 +64,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <section className="relative min-h-[88vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src={heroData.image || "/images/hero.svg"}
-            alt={companyName}
-            fill
-            priority
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/45 to-black/25" />
-        </div>
+        <HeroCarousel
+          images={heroImages}
+          fallback={heroData.image || "/images/hero.svg"}
+          companyName={companyName}
+        />
         <div className="container-page relative flex min-h-[88vh] flex-col justify-end pb-16 pt-28 text-white">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-green-200">
             {companyName}

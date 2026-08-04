@@ -163,3 +163,11 @@ export async function trackClick(input: {
     },
   });
 }
+
+export async function listPublishedHeroImages() {
+  return prisma.heroImage.findMany({
+    where: { status: ContentStatus.PUBLISHED },
+    orderBy: { sortOrder: "asc" },
+    select: { url: true, altAr: true, altEn: true },
+  });
+}

@@ -215,3 +215,15 @@ model ContactSubmission {
 
   @@index([createdAt])
 }
+
+model HeroImage {
+  id        String        @id @default(cuid())
+  url       String
+  altAr     String        @default("")
+  altEn     String        @default("")
+  sortOrder Int           @default(0)
+  status    ContentStatus @default(PUBLISHED)
+  createdAt DateTime      @default(now())
+
+  @@index([status, sortOrder])
+}
