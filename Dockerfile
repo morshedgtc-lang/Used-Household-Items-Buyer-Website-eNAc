@@ -1,0 +1,44 @@
+# syntax=docker/dockerfile:1
+
+FROM node:24-alpine AS base
+
+# --- deps ---
+FROM base AS deps
+WORKDIR /app
+ENV DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
+RUN apk add --no-cache openssl
+COPY package.json package-lock.json ./
+COPY prisma ./prisma
+RUN npm ci --include=optional
+
+# --- builder ---
+FROM base AS builder
+WORKDIR /app
+ENV DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
+ARG NEXT_PUBLIC_SITE_URL=http://localhost:3000
+ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
+ARG AUTH_SECRET=build-secret-placeholder-32chars!!
+ENV AUTH_SECRET=$AUTH_SECRET
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
+RUN node node_modules/esbuild/bin/esbuild prisma/seed.ts --bundle --platform=node --format=cjs --packages=external --outfile=.next/standalone/seed.cjs
+
+# --- runner ---
+FROM base AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
+RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs && apk add --no-cache openssl
+
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+
+USER nextjs
+EXPOSE 3000
+
+CMD ["sh", "-c", "node node_modules/prisma/build/index.js migrate deploy --schema prisma/schema.prisma && node seed.cjs && exec node server.js"]

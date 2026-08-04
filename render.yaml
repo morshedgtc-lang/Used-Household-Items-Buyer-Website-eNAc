@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: used-household-items-buyer
+    runtime: docker
+    plan: free
+    healthCheckPath: /admin/login
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+        comment: Postgres connection string from Supabase (Session pooler URL)
+      - key: AUTH_SECRET
+        sync: false
+        comment: Generate with `openssl rand -base64 32`
+      - key: NEXT_PUBLIC_SITE_URL
+        sync: false
+        comment: https://<your-app>.onrender.com or your custom domain
+      - key: SUPABASE_URL
+        sync: false
+        comment: Optional - for admin image uploads
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+        comment: Optional - Supabase service role key
+      - key: SUPABASE_STORAGE_BUCKET
+        sync: false
+        comment: Optional - default is "media"

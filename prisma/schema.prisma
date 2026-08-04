@@ -1,0 +1,217 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ContentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum ClickType {
+  WHATSAPP
+  CALL
+  PAGE_VIEW
+}
+
+enum AdminRole {
+  ADMIN
+}
+
+model Admin {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String
+  name         String
+  role         AdminRole     @default(ADMIN)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  activityLogs ActivityLog[]
+}
+
+model Category {
+  id             String        @id @default(cuid())
+  nameAr         String
+  nameEn         String
+  slug           String        @unique
+  descriptionAr  String        @default("")
+  descriptionEn  String        @default("")
+  image          String?
+  icon           String?
+  status         ContentStatus @default(PUBLISHED)
+  sortOrder      Int           @default(0)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  items          Item[]
+
+  @@index([status, sortOrder])
+}
+
+model Item {
+  id              String        @id @default(cuid())
+  categoryId      String
+  titleAr         String
+  titleEn         String
+  slug            String        @unique
+  descriptionAr   String        @default("")
+  descriptionEn   String        @default("")
+  benefitsAr      String        @default("")
+  benefitsEn      String        @default("")
+  pickupInfoAr    String        @default("")
+  pickupInfoEn    String        @default("")
+  thumbnail       String?
+  featured        Boolean       @default(false)
+  status          ContentStatus @default(PUBLISHED)
+  sortOrder       Int           @default(0)
+  metaTitleAr     String?
+  metaTitleEn     String?
+  metaDescriptionAr String?
+  metaDescriptionEn String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  category        Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  images          ItemImage[]
+  clickEvents     ClickEvent[]
+
+  @@index([status, featured, sortOrder])
+  @@index([categoryId])
+}
+
+model ItemImage {
+  id        String   @id @default(cuid())
+  itemId    String
+  url       String
+  altAr     String   @default("")
+  altEn     String   @default("")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  item      Item     @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@index([itemId, sortOrder])
+}
+
+model Testimonial {
+  id        String        @id @default(cuid())
+  name      String
+  rating    Int           @default(5)
+  messageAr String
+  messageEn String
+  status    ContentStatus @default(PUBLISHED)
+  sortOrder Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+model Faq {
+  id         String        @id @default(cuid())
+  questionAr String
+  questionEn String
+  answerAr   String
+  answerEn   String
+  status     ContentStatus @default(PUBLISHED)
+  sortOrder  Int           @default(0)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+model City {
+  id        String        @id @default(cuid())
+  nameAr    String
+  nameEn    String
+  status    ContentStatus @default(PUBLISHED)
+  sortOrder Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status, sortOrder])
+}
+
+model Setting {
+  id              String   @id @default("default")
+  companyNameAr   String   @default("مشتري الأثاث المستعمل")
+  companyNameEn   String   @default("We Buy Used Furniture")
+  logo            String?
+  favicon         String?
+  phone           String   @default("+966500000000")
+  whatsapp        String   @default("966500000000")
+  email           String   @default("info@example.com")
+  addressAr       String   @default("تبوك، المملكة العربية السعودية")
+  addressEn       String   @default("Tabuk, Saudi Arabia")
+  googleMapEmbed  String   @default("")
+  facebook        String   @default("")
+  instagram       String   @default("")
+  snapchat        String   @default("")
+  tiktok          String   @default("")
+  youtube         String   @default("")
+  businessHours   Json     @default("{\"ar\":\"السبت - الخميس: 9 ص - 9 م\",\"en\":\"Sat - Thu: 9 AM - 9 PM\"}")
+  gaId            String   @default("")
+  updatedAt       DateTime @updatedAt
+}
+
+model PageContent {
+  id        String   @id @default(cuid())
+  pageKey   String   @unique
+  data      Json
+  updatedAt DateTime @updatedAt
+}
+
+model SeoSetting {
+  id                String   @id @default(cuid())
+  pageKey           String   @unique
+  metaTitleAr       String   @default("")
+  metaTitleEn       String   @default("")
+  metaDescriptionAr String   @default("")
+  metaDescriptionEn String   @default("")
+  keywords          String   @default("")
+  ogImage           String?
+  updatedAt         DateTime @updatedAt
+}
+
+model ClickEvent {
+  id        String    @id @default(cuid())
+  type      ClickType
+  itemId    String?
+  path      String?
+  meta      Json?
+  createdAt DateTime  @default(now())
+  item      Item?     @relation(fields: [itemId], references: [id], onDelete: SetNull)
+
+  @@index([type, createdAt])
+  @@index([itemId])
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  adminId   String?
+  action    String
+  entity    String?
+  entityId  String?
+  ip        String?
+  userAgent String?
+  payload   Json?
+  createdAt DateTime @default(now())
+  admin     Admin?   @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt])
+  @@index([adminId])
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  phone     String
+  message   String
+  status    String   @default("NEW")
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+}
