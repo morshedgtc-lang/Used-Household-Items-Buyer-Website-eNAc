@@ -17,6 +17,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV DATABASE_URL="postgresql://placeholder:placeholder@localhost:5432/placeholder"
 ENV NEXT_PUBLIC_SITE_URL="http://localhost:3000"
+ENV AUTH_SECRET="build-placeholder-32chars-minimum-value!"
 RUN npm run build
 
 # --- runner ---
