@@ -1,11 +1,23 @@
 type LogLevel = "info" | "warn" | "error";
 
+function sanitize(obj: unknown): unknown {
+  if (obj === null || obj === undefined) return obj;
+  if (typeof obj === "function") return "[Function]";
+  if (typeof obj !== "object") return obj;
+  if (Array.isArray(obj)) return obj.map(sanitize);
+  const result: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(obj as Record<string, unknown>)) {
+    result[k] = sanitize(v);
+  }
+  return result;
+}
+
 function log(level: LogLevel, message: string, meta?: Record<string, unknown>) {
   const entry = {
     level,
     message,
     time: new Date().toISOString(),
-    ...meta,
+    ...(meta ? (sanitize(meta) as Record<string, unknown>) : {}),
   };
 
   if (level === "error") {
