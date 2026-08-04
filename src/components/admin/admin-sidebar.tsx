@@ -12,6 +12,7 @@ import {
   MapPin,
   FileText,
   Search,
+  Settings,
   LogOut,
   Menu,
   X,
@@ -43,6 +44,7 @@ const sections = [
     items: [
       { href: "/admin/homepage", label: "Homepage", icon: FileText },
       { href: "/admin/seo", label: "SEO", icon: Search },
+      { href: "/admin/settings", label: "Settings", icon: Settings },
     ],
   },
 ];
