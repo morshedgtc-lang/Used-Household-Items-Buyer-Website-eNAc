@@ -11,11 +11,6 @@ import {
   MapPin,
   FileText,
   Search,
-  Settings,
-  Mail,
-  ScrollText,
-  Database,
-  Users,
   LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -31,11 +26,6 @@ const navItems = [
   { href: "/admin/cities", label: "Cities", icon: MapPin },
   { href: "/admin/homepage", label: "Homepage", icon: FileText },
   { href: "/admin/seo", label: "SEO", icon: Search },
-  { href: "/admin/settings", label: "Settings", icon: Settings },
-  { href: "/admin/contact", label: "Contact", icon: Mail },
-  { href: "/admin/logs", label: "Activity Logs", icon: ScrollText },
-  { href: "/admin/backup", label: "Backup", icon: Database },
-  { href: "/admin/admins", label: "Admins", icon: Users },
 ];
 
 export function AdminSidebar() {
